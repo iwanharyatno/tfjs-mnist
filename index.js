@@ -9,7 +9,7 @@ async function trainModel() {
   const [trainDs, testDs] = await loadData();
   console.log('>begin training; epochs=5, batchSize=30');
   const info = await model.fitDataset(trainDs, {
-    epochs: 5,
+    epochs: 10,
     validationData: testDs,
     verbose: 1
   });
