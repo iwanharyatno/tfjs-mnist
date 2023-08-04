@@ -4,6 +4,18 @@ import model from './model.js';
 const epochs = 5;
 const batchSize = 30;
 
+let lastTime = +new Date();
+
+function estFromMs(ms) {
+  const time = new Date(ms);
+  const hours = time.getUTCHours();
+  const minutes = time.getUTCMinutes();
+  const seconds = time.getUTCSeconds();
+  const millis = time.getUTCMilliseconds();
+
+  return `${hours > 0 ? hours + 'h ' : ''}${minutes > 0 ? minutes + 'm ' : ''}${seconds > 0 ? seconds + 's ' : ''}${millis > 0 ? millis + 'ms' : ''}`;
+}
+
 async function trainModel() {
   model.summary();
 
@@ -18,8 +30,11 @@ async function trainModel() {
         console.log('>epoch', epoch, log);
       },
       onBatchBegin: (batch, log) => {
-        console.log('>batch', batch, log);
-      }
+        const deltaTimeMs = ((+new Date()) - lastTime);
+        lastTime = (+new Date());
+        const estMs = deltaTimeMs * (2000 - batch);
+        console.log('>batch', batch, log, 'delta:', deltaTimeMs + 'ms', 'est:', estFromMs(estMs));
+      },
     }
   });
 
