@@ -2,7 +2,7 @@ import tf from '@tensorflow/tfjs';
 
 const model = tf.sequential();
 model.add(tf.layers.conv2d({
-  inputShape: [IMAGE_H, IMAGE_W, 1],
+  inputShape: [28, 28, 1],
   kernelSize: 3,
   filters: 16,
   activation: 'relu'
