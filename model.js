@@ -7,9 +7,8 @@ model.add(tf.layers.conv2d({
   filters: 16,
   activation: 'relu' 
 }));
-model.add(tf.layers.conv2d({ kernelSize: 3, filters: 32, activation: 'relu' }));
 model.add(tf.layers.flatten({}));
-model.add(tf.layers.dense({ units: 32, activation: 'relu' }))
+model.add(tf.layers.dense({ units: 16, activation: 'relu' }))
 model.add(tf.layers.dense({ units: 10, activation: 'softmax' }));
 
 model.compile({
