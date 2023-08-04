@@ -10,6 +10,10 @@ function saveFile($file) {
   $name = $file['name'];
   $tmp = $file['tmp_name'];
 
+  if (!file_exists('uploads/')) {
+    mkdir('uploads');
+  }
+
   $result = move_uploaded_file($tmp, 'uploads/' . $name);
   if (!$result) {
     http_response_code(500);
