@@ -1,17 +1,26 @@
 import { loadData } from './data.js';
 import model from './model.js';
 
+const epochs = 5;
+const batchSize = 30;
+
 async function trainModel() {
-  model.weights.forEach(w => {
-   console.log(w.name, w.shape);
-  });
+  model.summary();
 
   const [trainDs, testDs] = await loadData();
-  console.log('>begin training; epochs=5, batchSize=30');
+  console.log(`>begin training; epochs=${epochs}, batchSize=${batchSize}`);
   const info = await model.fitDataset(trainDs, {
     epochs: 10,
     validationData: testDs,
-    verbose: 1
+    verbose: 1,
+    callbacks: {
+      onEpochBegin: (epoch, log) => {
+        console.log('>epoch', epoch, log);
+      },
+      onBatchBegin: (batch, log) => {
+        console.log('>batch', batch, log);
+      }
+    }
   });
 
   console.log('>final accuracy', info.history.acc);

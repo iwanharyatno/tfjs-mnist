@@ -36,12 +36,12 @@ async function loadData() {
   console.log('>creating dataset');
   const trainXGenerator = tf.data.generator(function*() {
     for (let i = 0; i < trainX.length; i++) {
-      yield tf.tensor(trainX.splice(i,1));
+      yield tf.tensor(trainX.splice(i,1).flat(), [28, 28, 1]);
     }
   });
   const trainYGenerator = tf.data.generator(function*() {
     for (let i = 0; i < trainY.length; i++) {
-      yield tf.tensor(trainY.splice(i,1));
+      yield tf.tensor(trainY.splice(i,1).flat(), [10]);
     }
   });
 
@@ -49,12 +49,12 @@ async function loadData() {
   console.log('>creating dataset');
   const testXGenerator = tf.data.generator(function*() {
     for (let i = 0; i < testX.length; i++) {
-      yield tf.tensor(testX.splice(i,1));
+      yield tf.tensor(testX.splice(i,1).flat(), [28, 28, 1]);
     }
   });
   const testYGenerator = tf.data.generator(function*() {
     for (let i = 0; i < testY.length; i++) {
-      yield tf.tensor(testY.splice(i,1));
+      yield tf.tensor(testY.splice(i,1).flat(), [10]);
     }
   });
 
